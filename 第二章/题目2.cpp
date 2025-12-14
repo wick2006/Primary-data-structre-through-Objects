@@ -67,7 +67,7 @@ int main()
 	{
 		orderedList<int> list2(100);
 		
-		cout << "ÊäÈëÔªËØ¸öÊý:" << endl;
+		cout << "è¯·è¾“å…¥å…ƒç´ ä¸ªæ•°:" << endl;
 		int elemnum;
 		cin >> elemnum;
 		
@@ -77,7 +77,7 @@ int main()
 		}
 		
 		int* tempList = new int[elemnum];
-		cout << "ÊäÈëÔªËØ" << endl; 
+		cout << "è¯·è¾“å…¥å…ƒç´ " << endl; 
 		for(int i = 0;i < elemnum;i++)
 		{
 			cin >> tempList[i];
@@ -85,11 +85,11 @@ int main()
 		
 		list2.initList(tempList,elemnum);
 		
-		cout << "É¾³ýÇ°ÔªËØ:" << endl;
+		cout << "åˆ é™¤å‰å…ƒç´ :" << endl;
 		list2.display();
 		
 		list2.deleteMin();
-		cout << "É¾³ýºó:" << endl;
+		cout << "åˆ é™¤åŽ:" << endl;
 		list2.display();
 	}
 	

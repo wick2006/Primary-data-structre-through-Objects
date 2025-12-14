@@ -6,153 +6,155 @@
 using namespace std;
 
 class treeNode{
-	public:
-		int value;
-		treeNode* left;
-		treeNode* right;
-		
-		treeNode(int x):value(x),left(nullptr),right(nullptr)
-		{
-		}
+    public:
+        int value;
+        treeNode* left;
+        treeNode* right;
+        
+        treeNode(int x):value(x),left(nullptr),right(nullptr)
+        {
+        }
 };
 
 class binTree{
-	private:
-		treeNode* root;
-		vector<int> result;
-		
-		treeNode* build(const vector<int>& preorder,int& index)// ¸ù¾ÝË÷ÒýÇ°Ðò±éÀú¹¹½¨¶þ²æÊ÷ 
-		{
-			if(index > preorder.size() || preorder[index] == 0)
-			{
-				index++;
-				return nullptr;
-			}
-			
-			treeNode* node = new treeNode(preorder[index]);
-			index++;
-			
-			node->left = build(preorder,index);
-			node->right = build(preorder,index);
-			return node;
-		}
-		
-		int getHeight(treeNode* node)
-		{
-			if(node == nullptr) return 0;
-			
-			int leftHeight = getHeight(node->left);
-			int rightHeight = getHeight(node->right);
-			
-			return max(leftHeight,rightHeight)+1;
-		}
-		
-		void findNode(treeNode* node)
-		{
-			if(node == nullptr) return;
-			
-			int leftHeight = getHeight(node->left);
-			int rightHeight = getHeight(node->right);//×óÓÒ×ÓÊ÷¸ß¶È
-			
-			if(abs(leftHeight - rightHeight) == 2)
-			{
-				result.push_back(node->value);
-			 } 
-			 
-			findNode(node->left);
-			findNode(node->right);
-		}
-		
-		void clear(treeNode* node)
-		{
-			if(node == nullptr) return;
-			
-			clear(node->left);
-			clear(node->right);
-			
-			delete node;
-		}
-		
-	public:
-		
-		binTree():root(nullptr)
-		{
-			
-		}
-		
-		~binTree()
-		{
-			clear(root);
-		}
-		
-		void build_from_preorder(vector<int>& preorder)
-		{
-			int index = 0;
-			root = build(preorder,index);		
-		}		
-		
-		vector<int> findResult()
-		{
-			result.clear();
-			findNode(root);
-			return result;
-		}
-		
-		void display()
-		{
-			vector<int> node = findResult();
-			
-			if(node.empty())
-			{
-				cout << "Ã»ÓÐ·ûºÏÌõ¼þµÄ½Úµã" << endl;
-			}
-			else
-			{
-				for(int i = 0;i < node.size();i++)
-				{
-					cout << node[i] << " ";
-				}
-				
-				cout << endl;
-			}
-		}
-		
-		
+    private:
+        treeNode* root;
+        vector<int> result;
+        
+        treeNode* build(const vector<int>& preorder,int& index)// æ ¹æ®å‰åºéåŽ†é€’å½’å»ºç«‹äºŒå‰æ ‘ 
+        {
+            if(index >= preorder.size() || preorder[index] == 0)
+            {
+                index++;
+                return nullptr;
+            }
+            
+            treeNode* node = new treeNode(preorder[index]);
+            index++;
+            
+            node->left = build(preorder,index);
+            node->right = build(preorder,index);
+            return node;
+        }
+        
+        int getHeight(treeNode* node)
+        {
+            if(node == nullptr) return 0;
+            
+            int leftHeight = getHeight(node->left);
+            int rightHeight = getHeight(node->right);
+            
+            return max(leftHeight,rightHeight)+1;
+        }
+        
+        void findNode(treeNode* node)
+        {
+            if(node == nullptr) return;
+            
+            int leftHeight = getHeight(node->left);
+            int rightHeight = getHeight(node->right);//è®¡ç®—å·¦å³å­æ ‘é«˜åº¦
+            
+            if(abs(leftHeight - rightHeight) == 2)
+            {
+                result.push_back(node->value);
+             } 
+             
+            findNode(node->left);
+            findNode(node->right);
+        }
+        
+        void clear(treeNode* node)
+        {
+            if(node == nullptr) return;
+            
+            clear(node->left);
+            clear(node->right);
+            
+            delete node;
+        }
+        
+    public:
+        
+        binTree():root(nullptr)
+        {
+            
+        }
+        
+        ~binTree()
+        {
+            clear(root);
+        }
+        
+        void build_from_preorder(vector<int>& preorder)
+        {
+            int index = 0;
+            root = build(preorder,index);		
+        }		
+        
+        vector<int> findResult()
+        {
+            result.clear();
+            findNode(root);
+            return result;
+        }
+        
+        void display()
+        {
+            vector<int> node = findResult();
+            
+            if(node.empty())
+            {
+                cout << "æ²¡æœ‰æ»¡è¶³æ¡ä»¶çš„èŠ‚ç‚¹" << endl;
+            }
+            else
+            {
+                for(int i = 0;i < node.size();i++)
+                {
+                    cout << node[i] << " ";
+                }
+                
+                cout << endl;
+            }
+        }
+        
+        
 };
 
 int main()
 {
-	int treeNum;
-	
-	while(1)
-	{
-		cout << "ÊäÈëÓÐ¶àÉÙ¿Ã¶þ²æÊ÷Òª½øÐÐ²âÊÔ£¨ÒÔ-1½áÊøÕû¸ö³ÌÐòµÄÔËÐÐ£©£º";
-		cin >> treeNum;
-		
-		cin.ignore(100000,'\n');
-		
-		for (int i = 0; i < treeNum; i++) 
-		{
-            cout << "\nµÚ" << i + 1 << "¿ÃÊ÷:" << endl;
-    		cout << "ÊäÈëÀ©³äµÄ¶þ²æÊ÷Ç°Ðò±éÀúÐòÁÐ£¨ÕûÊýÖµÐòÁÐ£¬0±íÊ¾¿Õ×ÓÊ÷£¬ÒÔ¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÊø£©£º";
-    		
-    		vector<int> preorder;
-    		string line;
-    		
-    		getline(cin,line);
-    		stringstream ss(line);
-    		int value;
-    		while(ss >> value)
-    		{
-    			preorder.push_back(value);
-			}
-			
-			binTree tree;
-			tree.build_from_preorder(preorder);
-			
-			cout << "Êä³ö×óÓÒ×ÓÊ÷¸ß¶È²îµÄ¾ø¶ÔÖµÎª2µÄ½áµã£º";
-			tree.display();
-    		
-		}
-	}
+    int treeNum;
+    
+    while(1)
+    {
+        cout << "è¯·è¾“å…¥è¦è¿›è¡Œæµ‹è¯•çš„äºŒå‰æ ‘æ•°é‡ï¼Œè¾“å…¥-1ç»“æŸç¨‹åºï¼š";
+        cin >> treeNum;
+        
+        if(treeNum == -1) break;
+
+        cin.ignore(100000,'\n');
+        
+        for (int i = 0; i < treeNum; i++) 
+        {
+            cout << "\nç¬¬" << i + 1 << "æ£µæ ‘:" << endl;
+            cout << "è¯·è¾“å…¥è¯¥æ ‘çš„å‰åºéåŽ†åºåˆ—ï¼ˆèŠ‚ç‚¹å€¼ä¸º0è¡¨ç¤ºç©ºèŠ‚ç‚¹ï¼‰ï¼Œç”¨ç©ºæ ¼åˆ†éš”ï¼Œä»¥å›žè½¦ç»“æŸï¼š";
+            
+            vector<int> preorder;
+            string line;
+            
+            getline(cin,line);
+            stringstream ss(line);
+            int value;
+            while(ss >> value)
+            {
+                preorder.push_back(value);
+            }
+            
+            binTree tree;
+            tree.build_from_preorder(preorder);
+            
+            cout << "è¯¥æ ‘å·¦å³å­æ ‘é«˜åº¦å·®ä¸º2çš„èŠ‚ç‚¹å€¼æœ‰ï¼š";
+            tree.display();
+            
+        }
+    }
 }

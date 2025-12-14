@@ -6,120 +6,120 @@
 using namespace std;
 
 class treeNode{
-	public:
-		int value;
-		treeNode* left;
-		treeNode* right;
-		
-	
-		treeNode(int x):value(x),left(nullptr),right(nullptr){
-		
-	}
+    public:
+        int value;
+        treeNode* left;
+        treeNode* right;
+        
+    
+        treeNode(int x):value(x),left(nullptr),right(nullptr){
+        
+    }
 };
 
 class binTree{
-	private:
-		treeNode* root;
-		unordered_map<int,int> inorderMap;// ¹¹½¨¶ÔÓ¦¸ù½ÚµãµÄË÷Òı£¬·½±ã²éÕÒ
-		
-		treeNode* build(vector<int>& postorder,int postStart,int postEnd,
-						vector<int>& inorder,int inStart,int inEnd)
-		{
-			if(postStart > postEnd || inStart > inEnd)
-			{
-				return nullptr;
-			}
-			
-			int rootVal = postorder[postEnd];
-			treeNode* root = new treeNode(rootVal);//¸ù½ÚµãÊÇºóĞò±éÀúµÄ×îºóÒ»¸öÔªËØ 
-			
-			int rootIndex = inorderMap[rootVal]; //¸ù¾İ¸ù½ÚµãµÄÖµ¿ìËÙËÑË÷µ½Ë÷Òı£¬mapÔÚºóÃæ³õÊ¼»¯¡£
-			
-			int leftSize = rootIndex - inStart; //×ó×ÓÊ÷µÄ½ÚµãÊı.
-			
-			 // µİ¹é¹¹½¨×ó×ÓÊ÷
-        	// ×ó×ÓÊ÷µÄºóĞò±éÀú·¶Î§: [postStart, postStart + leftSize - 1]
-        	// ×ó×ÓÊ÷µÄÖĞĞò±éÀú·¶Î§: [inStart, rootIndex - 1]
-        	root->left = build(postorder,postStart,postStart + leftSize - 1,
-								 inorder,inStart,rootIndex - 1);
-								 
-			// ÓÒ×ÓÊ÷ºóĞò±éÀú£º[postStart + leftSize, postEnd - 1](postEndÎª¸ù½Úµã) 
-			// ÓÒ×ÓÊ÷ÖĞĞò±éÀú:[rootIndex + 1,inEnd] 
-			root->right = build(postorder,postStart + leftSize,postEnd -1,
-								inorder,rootIndex + 1,inEnd);
-								
-			return root;
-								
-		}
-		
-		void preorder(treeNode* node,vector<int>& result)
-		{
-			if(node == nullptr) return;
-			
-			result.push_back(node->value);
-			preorder(node->left,result);
-			preorder(node->right,result);
-		}
-		
-		void clearTree(treeNode* node)
-		{
-			if(node == nullptr) return;
-			
-			clearTree(node -> left);
-			clearTree(node->right);
-			delete node;
-		}
-		
-	public:
-		
-		binTree() : root(nullptr){}
-		
-		~binTree()
-		{
-			clearTree(root);
-		}
-		
-		
-		void buildFromInPost(vector<int>& postorder,vector<int>& inorder)
-		{
-			clearTree(root);
-			root = nullptr;
-			
-			inorderMap.clear();
-			
-			for(int i = 0;i < inorder.size();i++)
-			{
-				inorderMap[inorder[i]] = i;// ½«inorder[i]Õâ¸öÖµ¶ÔÓ¦µ½Ë÷Òı(Èç3,5,4¶ÔÓ¦0,1,2)
-				 
-			}
-			
-			root = build(postorder,0,postorder.size() - 1,
-						 inorder,0,inorder.size() - 1);
-		}
-		
-		vector<int> getPreorder()
-		{
-			vector<int> result;
-			preorder(root,result);
-			return result;
-		}
-		
-		void display()
-		{
-			vector<int> preorder = getPreorder();
-			for(int i = 0;i < preorder.size();i++)
-			{
-				cout << preorder[i] << " ";
-			}
-			cout << endl;
-		}
+    private:
+        treeNode* root;
+        unordered_map<int,int> inorderMap;// å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹å€¼å¯¹åº”çš„ä¸­åºéå†ä¸‹æ ‡
+        
+        treeNode* build(vector<int>& postorder,int postStart,int postEnd,
+                        vector<int>& inorder,int inStart,int inEnd)
+        {
+            if(postStart > postEnd || inStart > inEnd)
+            {
+                return nullptr;
+            }
+            
+            int rootVal = postorder[postEnd];
+            treeNode* root = new treeNode(rootVal);//æ ¹èŠ‚ç‚¹æ˜¯ååºéå†çš„æœ€åä¸€ä¸ªå…ƒç´  
+            
+            int rootIndex = inorderMap[rootVal]; //æ ¹æ®æ ¹èŠ‚ç‚¹çš„å€¼ï¼Œåœ¨ä¸­åºéå†çš„mapä¸­æ‰¾åˆ°ä¸‹æ ‡
+            
+            int leftSize = rootIndex - inStart; //å·¦å­æ ‘çš„èŠ‚ç‚¹æ•°.
+            
+             // é€’å½’æ„å»ºå·¦å­æ ‘
+            // ååºéå†çš„åŒºé—´: [postStart, postStart + leftSize - 1]
+            // ä¸­åºéå†çš„åŒºé—´: [inStart, rootIndex - 1]
+            root->left = build(postorder,postStart,postStart + leftSize - 1,
+                                 inorder,inStart,rootIndex - 1);
+                                 
+            // é€’å½’æ„å»ºå³å­æ ‘ [postStart + leftSize, postEnd - 1](postEndä¸ºæ ¹èŠ‚ç‚¹) 
+            // ä¸­åºéå†åŒºé—´:[rootIndex + 1,inEnd] 
+            root->right = build(postorder,postStart + leftSize,postEnd -1,
+                                inorder,rootIndex + 1,inEnd);
+                                
+            return root;
+                                
+        }
+        
+        void preorder(treeNode* node,vector<int>& result)
+        {
+            if(node == nullptr) return;
+            
+            result.push_back(node->value);
+            preorder(node->left,result);
+            preorder(node->right,result);
+        }
+        
+        void clearTree(treeNode* node)
+        {
+            if(node == nullptr) return;
+            
+            clearTree(node -> left);
+            clearTree(node->right);
+            delete node;
+        }
+        
+    public:
+        
+        binTree() : root(nullptr){}
+        
+        ~binTree()
+        {
+            clearTree(root);
+        }
+        
+        
+        void buildFromInPost(vector<int>& postorder,vector<int>& inorder)
+        {
+            clearTree(root);
+            root = nullptr;
+            
+            inorderMap.clear();
+            
+            for(int i = 0;i < inorder.size();i++)
+            {
+                inorderMap[inorder[i]] = i;// æŠŠinorder[i]çš„å€¼å¯¹åº”ä¸‹æ ‡å­˜å…¥map(å¦‚3,5,4å¯¹åº”0,1,2)
+                 
+            }
+            
+            root = build(postorder,0,postorder.size() - 1,
+                         inorder,0,inorder.size() - 1);
+        }
+        
+        vector<int> getPreorder()
+        {
+            vector<int> result;
+            preorder(root,result);
+            return result;
+        }
+        
+        void display()
+        {
+            vector<int> preorder = getPreorder();
+            for(int i = 0;i < preorder.size();i++)
+            {
+                cout << preorder[i] << " ";
+            }
+            cout << endl;
+        }
 };
 
 int main()
 {
-	int treeNum;
-	while (true) {
-        cout << "ÊäÈëÓĞ¶àÉÙ¿Ã¶ş²æÊ÷Òª½øĞĞ²âÊÔ£¨ÒÔ-1½áÊøÕû¸ö³ÌĞòµÄÔËĞĞ£©£º";
+    int treeNum;
+    while (true) {
+        cout << "è¯·è¾“å…¥è¦è¿›è¡Œæµ‹è¯•çš„äºŒå‰æ ‘æ•°é‡ï¼Œè¾“å…¥-1ç»“æŸç¨‹åºï¼š";
         cin >> treeNum;
         
         if (treeNum == -1) {
@@ -127,22 +127,22 @@ int main()
         }
         
         if (treeNum <= 0) {
-            cout << "ÇëÊäÈë´óÓÚ0µÄÊı×Ö£¡" << endl;
+            cout << "è¯·è¾“å…¥å¤§äº0çš„æ•°å­—ï¼" << endl;
             continue;
         }
         
-        // Çå³ıÊäÈë»º³åÇø
+        // æ¸…ç©ºè¾“å…¥ç¼“å†²åŒº
         cin.ignore(1000, '\n');
         
         for (int i = 0; i < treeNum; i++) {
-            cout << "\nµÚ" << i + 1 << "¿ÃÊ÷:" << endl;
+            cout << "\nç¬¬" << i + 1 << "æ£µæ ‘:" << endl;
             
-            // ¶ÁÈ¡ºóĞò±éÀúĞòÁĞ
-            cout << "ÊäÈë¶ş²æÊ÷µÄºóĞò±éÀúĞòÁĞ£¨ÒÔ¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÊø£©£º";
+            // è¯»å–ååºéå†
+            cout << "è¯·è¾“å…¥è¯¥æ ‘çš„ååºéå†åºåˆ—ï¼Œç”¨ç©ºæ ¼åˆ†éš”ï¼Œä»¥å›è½¦ç»“æŸï¼š";
             vector<int> postorder;
             string line;
             
-            getline(cin, line);  // ¶ÁÈ¡ÕûĞĞ
+            getline(cin, line);  // è¯»å–ä¸€è¡Œ
             stringstream ss(line);
             int value;
             
@@ -150,28 +150,28 @@ int main()
                 postorder.push_back(value);
             }
             
-            // ¶ÁÈ¡ÖĞĞò±éÀúĞòÁĞ
-            cout << "ÊäÈë¶ş²æÊ÷µÄÖĞĞò±éÀúĞòÁĞ£¨ÒÔ¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÊø£©£º";
+            // è¯»å–ä¸­åºéå†
+            cout << "è¯·è¾“å…¥è¯¥æ ‘çš„ä¸­åºéå†åºåˆ—ï¼Œç”¨ç©ºæ ¼åˆ†éš”ï¼Œä»¥å›è½¦ç»“æŸï¼š";
             vector<int> inorder;
             
-            getline(cin, line);  // ¶ÁÈ¡ÕûĞĞ
+            getline(cin, line);  // è¯»å–ä¸€è¡Œ
             stringstream ss2(line);
             
             while (ss2 >> value) {
                 inorder.push_back(value);
             }
             
-            // ¼ì²éĞòÁĞ³¤¶ÈÊÇ·ñÆ¥Åä
+            // æ£€æŸ¥ä¸¤ä¸ªåºåˆ—é•¿åº¦æ˜¯å¦åŒ¹é…
             if (postorder.size() != inorder.size()) {
-                cout << "´íÎó£ººóĞò±éÀúĞòÁĞºÍÖĞĞò±éÀúĞòÁĞ³¤¶È²»Ò»ÖÂ£¡" << endl;
+                cout << "é”™è¯¯ï¼šååºéå†å’Œä¸­åºéå†çš„èŠ‚ç‚¹æ•°ä¸ä¸€è‡´ï¼" << endl;
                 continue;
             }
             
-            // ¹¹½¨¶ş²æÊ÷²¢ÏÔÊ¾Ç°Ğò±éÀú
+            // æ„å»ºå¹¶è¾“å‡ºå‰åºéå†
             binTree tree;
             tree.buildFromInPost(postorder, inorder);
             
-            cout << "¶ş²æÊ÷µÄÇ°Ğò±éÀúĞòÁĞ£º";
+            cout << "è¯¥æ ‘çš„å‰åºéå†ä¸ºï¼š";
             tree.display();
         }
     }

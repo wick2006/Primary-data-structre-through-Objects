@@ -4,6 +4,7 @@
 #include <algorithm>
 using namespace std;
 
+// é€’å½’å®ç°å¿«é€Ÿæ’åº
 void quickSort_recursion(vector<int>& arr,int start,int end)
 {
 	int left = start;
@@ -15,14 +16,16 @@ void quickSort_recursion(vector<int>& arr,int start,int end)
 		return;
 	}
 	
-	while(left<right)
+	while(left < right)
 	{
-		while(left < right && arr[right] >= key )//ÕÒµ½ÓÒ±ßĞ¡ÓÚµÈÓÚkeyµÄÖµºóÍ£ÏÂ£¨»òÕß×óË÷ÒıµÈÓÚÓÒË÷Òı£© 
+		// æ‰¾åˆ°å³è¾¹å°äºkeyçš„å€¼åœä¸‹
+		while(left < right && arr[right] >= key)
 		{
 			right--;
 		}
 		
-		while(left < right && arr[left] <= key)//ÕÒµ½×ó±ß´óÓÚµÈÓÚkeyµÄÖµºóÍ£ÏÂ Í¬ÉÏ 
+		// æ‰¾åˆ°å·¦è¾¹å¤§äºkeyçš„å€¼åœä¸‹
+		while(left < right && arr[left] <= key)
 		{
 			left++;
 		}
@@ -31,32 +34,31 @@ void quickSort_recursion(vector<int>& arr,int start,int end)
 		{
 			swap(arr[left],arr[right]);
 		}
-		
 	}
 	
 	swap(arr[start],arr[right]);
 	
 	quickSort_recursion(arr,start,right-1);
 	quickSort_recursion(arr,right+1,end);
-	
 }
 
+// éé€’å½’å®ç°å¿«é€Ÿæ’åº
 void quickSort_nonRec(vector<int>& arr,int start,int end)
 {
 	if(start >= end) return;
 	
 	stack<pair<int,int> > arrStack;
-	arrStack.push({start,end}); //½«³õÊ¼Çø¼äÑ¹ÈëÕ»ÖĞ(Õ»ÖĞ´æ´¢·Ö¶ÎÇø¼äÖµ£© 
+	arrStack.push({start,end}); // åˆå§‹åŒºé—´å…¥æ ˆï¼ˆæ ˆä¸­å­˜å‚¨å¾…æ’åºåŒºé—´çš„èµ·æ­¢ä¸‹æ ‡ï¼‰
 	
-	while(!arrStack.empty()) // Õ»¿ÕËµÃ÷ÅÅĞòÒÑÍê³É 
+	while(!arrStack.empty()) // æ ˆä¸ç©ºè¯´æ˜è¿˜æœ‰åŒºé—´éœ€è¦æ’åº
 	{
 		pair<int,int> current = arrStack.top();
-		arrStack.pop();//È¡Õ»¶¥µÄ½øĞĞÅÅĞò
+		arrStack.pop();// å–å‡ºæ ˆé¡¶åŒºé—´
 		
-		int left = current.first;//current´æ´¢Ò»¸öÊı×éµÄÇø¼ä¡£current.first ±íÊ¾Ò»¸öÇø¼äµÄ¿ªÊ¼second±íÊ¾½áÊø£¬ 
+		int left = current.first;  // currentå­˜å‚¨ä¸€ä¸ªåŒºé—´çš„èµ·æ­¢ä¸‹æ ‡
 		int right = current.second;
 		
-		if(left >= right) continue;//¶ÔÓÚÖ»ÓĞÒ»¸öÔªËØµÄÇø¼äºÍÎŞĞ§Çø¼äÌø¹ıÅÅĞò¹ı³Ì 
+		if(left >= right) continue; // åŒºé—´åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œæ— éœ€æ’åº
 		
 		int key = arr[left];
 		int leftPtr = left;
@@ -80,13 +82,13 @@ void quickSort_nonRec(vector<int>& arr,int start,int end)
 		
 		swap(arr[left],arr[rightPtr]);
 		
-		arrStack.push({rightPtr + 1,right});// ±£Ö¤×óÇø¼äÔÚÕ»¶¥£¬ÏÈ½«ÓÒÇø¼äÑ¹ÈëÕ» 
+		// å…ˆå‹å³åŒºé—´å†å‹å·¦åŒºé—´ï¼Œä¿è¯å·¦åŒºé—´å…ˆå¤„ç†
+		arrStack.push({rightPtr + 1,right});
 		arrStack.push({left,rightPtr - 1});
-		
 	}
-	
 }
 
+// æ˜¾ç¤ºæ•°ç»„
 void display(const vector<int>& arr)
 {
 	for(int i = 0;i < arr.size();i++)
@@ -97,63 +99,62 @@ void display(const vector<int>& arr)
 }
 
 int main() {
-    while (true) {
-        // ¼ì²éÊÇ·ñ½áÊø³ÌĞò
-        cout << "ÊäÈë1¿ªÊ¼²âÊÔ£¬ÊäÈë-1½áÊø³ÌĞò£º";
-        int choice;
-        cin >> choice;
-        
-        if (choice == -1) {
-            cout << "³ÌĞò½áÊø¡£" << endl;
-            break;
-        }
-        
-        if (choice != 1) {
-            cout << "ÎŞĞ§ÊäÈë£¬ÇëÖØĞÂÊäÈë¡£" << endl;
-            continue;
-        }
-        
-        // ¶ÁÈ¡Êı¾İ
-        cout << "ÇëÊäÈëÈô¸É¸öÕûÊı£¨ÒÔ0½áÊøÊäÈë£©£º" << endl;
-        vector<int> numbers;
-        int num;
-        
-        while (cin >> num) {
-            if (num == 0) break;
-            numbers.push_back(num);
-        }
-        
-        if (numbers.empty()) {
-            cout << "ÊäÈëÎª¿Õ£¬ÇëÖØĞÂÊäÈë¡£" << endl;
-            continue;
-        }
-        
-        cout << endl;
-        cout << "¿ìËÙÅÅĞòµİ¹éËã·¨" << endl;
-        
-        // ´´½¨¸±±¾ÓÃÓÚµİ¹éÅÅĞò
-        vector<int> arr_recursive = numbers;
-        cout << "ÅÅĞòÇ°µÄĞòÁĞ:";
-        display(arr_recursive);
-        cout << "ÅÅĞòºóµÄĞòÁĞ:";
-        quickSort_recursion(arr_recursive, 0, arr_recursive.size() - 1);
-        display(arr_recursive);
-        
-        cout << endl;
-        cout << "¿ìËÙÅÅĞò·Çµİ¹éËã·¨£º" << endl;
-        
-        // ´´½¨¸±±¾ÓÃÓÚ·Çµİ¹éÅÅĞò
-        vector<int> arr_nonrecursive = numbers;
-        cout << "ÅÅĞòÇ°µÄĞòÁĞ:";
-        display(arr_nonrecursive);
-        
-        // ×¢Òâ£ºÕâÀïÖ»´«ÈëÊı×é£¬²»ĞèÒª´«ÈëÇø¼ä
-        quickSort_nonRec(arr_nonrecursive,0,arr_nonrecursive.size()-1);
-        cout << "ÅÅĞòºóµÄĞòÁĞ:";
-        display(arr_nonrecursive);
-        
-        cout << endl;
-    }
-    
-    return 0;
+	while (true) {
+		// åˆ¤æ–­æ˜¯å¦ç»§ç»­
+		cout << "è¾“å…¥1å¼€å§‹æµ‹è¯•ï¼Œè¾“å…¥-1é€€å‡ºï¼š";
+		int choice;
+		cin >> choice;
+		
+		if (choice == -1) {
+			cout << "ç¨‹åºç»“æŸ" << endl;
+			break;
+		}
+		
+		if (choice != 1) {
+			cout << "æ— æ•ˆè¾“å…¥ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚" << endl;
+			continue;
+		}
+		
+		// è·å–æ•°æ®
+		cout << "è¯·è¾“å…¥å¾…æ’åºçš„æ•´æ•°ï¼ˆä»¥0ç»“æŸè¾“å…¥ï¼‰ï¼š" << endl;
+		vector<int> numbers;
+		int num;
+		
+		while (cin >> num) {
+			if (num == 0) break;
+			numbers.push_back(num);
+		}
+		
+		if (numbers.empty()) {
+			cout << "è¾“å…¥ä¸ºç©ºï¼Œè¯·é‡æ–°è¾“å…¥ã€‚" << endl;
+			continue;
+		}
+		
+		cout << endl;
+		cout << "é€’å½’ç®—æ³•æ’åºç»“æœ" << endl;
+		
+		// é€’å½’å¿«é€Ÿæ’åº
+		vector<int> arr_recursive = numbers;
+		cout << "æ’åºå‰æ•°ç»„:";
+		display(arr_recursive);
+		cout << "æ’åºåæ•°ç»„:";
+		quickSort_recursion(arr_recursive, 0, arr_recursive.size() - 1);
+		display(arr_recursive);
+		
+		cout << endl;
+		cout << "éé€’å½’ç®—æ³•æ’åºç»“æœ" << endl;
+		
+		// éé€’å½’å¿«é€Ÿæ’åº
+		vector<int> arr_nonrecursive = numbers;
+		cout << "æ’åºå‰æ•°ç»„:";
+		display(arr_nonrecursive);
+		
+		quickSort_nonRec(arr_nonrecursive,0,arr_nonrecursive.size()-1);
+		cout << "æ’åºåæ•°ç»„:";
+		display(arr_nonrecursive);
+		
+		cout << endl;
+	}
+	
+	return 0;
 }

@@ -11,9 +11,6 @@ class listNode{
 	{
 		
 	}
-	
-	
-	
 };
 
 template <class T>
@@ -32,24 +29,23 @@ class cirList{
 		
 		void clear()
 		{
-		
-		    if(head == nullptr) return;
-		    
-		    listNode<T>* current = head->next;
-		    listNode<T>* temp;
-		    
-		    // ÏÈÉ¾³ı³ıÍ·½ÚµãÍâµÄËùÓĞ½Úµã
-		    while(current != head)
-		    {
-		        temp = current;
-		        current = current->next;
-		        delete temp;
-		    }
-		    
-		    // ×îºóÉ¾³ıÍ·½Úµã
-		    delete head;
-		    head = nullptr;
-		    length = 0;
+			if(head == nullptr) return;
+			
+			listNode<T>* current = head->next;
+			listNode<T>* temp;
+			
+			// å…ˆåˆ é™¤å¤´ç»“ç‚¹ä¹‹åçš„æ‰€æœ‰èŠ‚ç‚¹
+			while(current != head)
+			{
+				temp = current;
+				current = current->next;
+				delete temp;
+			}
+			
+			// æœ€ååˆ é™¤å¤´ç»“ç‚¹
+			delete head;
+			head = nullptr;
+			length = 0;
 		}
 
 		
@@ -64,14 +60,14 @@ class cirList{
 			}
 			else
 			{
-				listNode<T>* tail = head; //Î²½ÚµãÖ¸ÏòÍ·½Úµã
+				listNode<T>* tail = head; // å°¾èŠ‚ç‚¹æŒ‡å‘å¤´ç»“ç‚¹
 				while(tail->next != head)
 				{
 					tail = tail -> next; 
 				} 
 				
 				tail -> next = newNode;
-				newNode -> next = head; //ÔÚÎ²½Úµãºó²åÈëĞÂ½Úµã¡£
+				newNode -> next = head; // æ–°å°¾èŠ‚ç‚¹æŒ‡å‘å¤´ç»“ç‚¹
 				 
 			}
 			
@@ -80,6 +76,7 @@ class cirList{
 		
 		void delMin()
 		{
+			if(head == nullptr) return;
 			if(head -> next == head)
 			{
 				delete head;
@@ -104,7 +101,7 @@ class cirList{
 				current = current -> next;
 			}
 			
-			if(min == head)//×îĞ¡½ÚµãÊÇÍ·½ÚµãÔò¸üĞÂ 
+			if(min == head)// æœ€å°èŠ‚ç‚¹æ˜¯å¤´ç»“ç‚¹
 			{
 				listNode<T>* tail = head;
 				while(tail->next != head)
@@ -123,24 +120,23 @@ class cirList{
 			delete min;
 			length--;
 			return;
-			
 		}
 		
 		void display() const
 		{
-		    if(head == nullptr)
-		    {
-		        cout << "¿ÕÁĞ±í" << endl;
-		        return;
-		    }
-		    
-		    listNode<T>* current = head;
-		    do {
-		        cout << current->data << " ";
-		        current = current->next;
-		    } while(current != head); // Ê¹ÓÃdo-whileÈ·±£ÖÁÉÙÖ´ĞĞÒ»´Î
-		    cout << endl;
-	}		
+			if(head == nullptr)
+			{
+				cout << "ç©ºé“¾è¡¨" << endl;
+				return;
+			}
+			
+			listNode<T>* current = head;
+			do {
+				cout << current->data << " ";
+				current = current->next;
+			} while(current != head); // ä½¿ç”¨do-whileç¡®ä¿è‡³å°‘æ‰§è¡Œä¸€æ¬¡
+			cout << endl;
+		}        
 		
 		void read(int elenum)
 		{
@@ -152,7 +148,6 @@ class cirList{
 				endInsert(value);
 			}
 		}
-		
 }; 
 
 int main()
@@ -163,27 +158,26 @@ int main()
 	
 	while(1)
 	{
-		cout << "´æÈëÁ´±íµÄÔªËØ¸öÊı£¨ÒÔ-1½áÊøÕû¸ö³ÌĞòµÄÔËĞĞ£©£º";
-        cin >> elenum;
-        
-        if(elenum == -1)
-        {
-        	break;
+		cout << "è¯·è¾“å…¥å…ƒç´ ä¸ªæ•°ï¼Œè¾“å…¥-1ç»“æŸç¨‹åºï¼š" ;
+		cin >> elenum;
+		
+		if(elenum == -1)
+		{
+			break;
 		}
 		
-		cout << "´æÈëÁ´±íµÄÊı¾İ" << endl;
+		cout << "è¯·è¾“å…¥é“¾è¡¨å…ƒç´ ï¼š" << endl;
 	
 		list1.read(elenum);
 		
-        
-        cout << "É¾³ıÇ°µÄÁ´±íÊı¾İ£º";
-        list1.display();
-        
-        list1.delMin();
-        
-        cout << "É¾³ıºóµÄÁ´±íÊı¾İ£º";
-        list1.display();
-        
-        cout << endl;
+		cout << "åˆ é™¤å‰é“¾è¡¨æ•°æ®ï¼š";
+		list1.display();
+		
+		list1.delMin();
+		
+		cout << "åˆ é™¤æœ€å°å…ƒç´ åé“¾è¡¨æ•°æ®ï¼š";
+		list1.display();
+		
+		cout << endl;
 	}
 }

@@ -6,151 +6,151 @@
 using namespace std;
 
 class treeNode{
-	public:
-		int value;
-		treeNode* left;
-		treeNode* right;
-		treeNode* leafNext;
-		
-	treeNode(int x):value(x),left(nullptr),right(nullptr),leafNext(nullptr){}
-	
+    public:
+        int value;
+        treeNode* left;
+        treeNode* right;
+        treeNode* leafNext;
+        
+    treeNode(int x):value(x),left(nullptr),right(nullptr),leafNext(nullptr){}
+    
 };
 
 class leafNode{
-	public:
-		int value;
-		leafNode* next;
-		
-	leafNode(int x):value(x),next(nullptr){
-		
-	}
+    public:
+        int value;
+        leafNode* next;
+        
+    leafNode(int x):value(x),next(nullptr){
+        
+    }
 };
 
 class binTree{
-	private:
-		treeNode* root;
-		leafNode* leafHead;
-		leafNode* leafTail;
-		
-	treeNode* build(const vector<int>& preorder, int& current)
-	{
-		if(current >= preorder.size() || preorder[current] == 0)
-		{
-			current++;
-			return nullptr;//Ìø¹ıµ±Ç°½Úµã·µ»Ø¿ÕÖ¸Õë 
-		}
-		
-		treeNode* tempNode = new treeNode(preorder[current]);
-		current++;
-		
-		tempNode -> left = build(preorder,current);
-		tempNode -> right = build(preorder,current);
-		
-		return tempNode;
-	}
-	
-	void linkLeaves(treeNode* node)
-	{
-		if(node == nullptr)
-		{
-			return;
-		}
-		
-		if(node -> left == nullptr && node -> right == nullptr)
-		{
-			leafNode* newLeaf = new leafNode(node -> value);
-			
-			if(leafHead == nullptr)
-			{
-				leafHead = leafTail = newLeaf;
-			}
-			else
-			{
-				leafTail -> next = newLeaf;
-				leafTail = newLeaf;	
-			}
-		}
-		
-		linkLeaves(node -> left);
-		linkLeaves(node -> right);
-	}
-	
-	void clearLeaf()
-	{
-		leafNode* current = leafHead;
-		while(current != nullptr)
-		{
-			leafNode* temp = current;
-			current = current -> next;
-			
-			delete temp;
-		}
-		
-		leafHead = leafTail = nullptr;
-	}
-	
-	void clearTree(treeNode* node)
-	{
-		if(node == nullptr) return;
-		
-		clearTree(node -> left);
-		clearTree(node -> right);
-		
-		delete node;
-	}
-	
-	public:
-		binTree():root(nullptr),leafHead(nullptr),leafTail(nullptr){}
-		
-		~binTree()
-		{
-			clearTree(root);
-			clearLeaf();
-		}
-		
-		void buildTree(const vector<int>& preorder)
-		{
-			int index = 0;
-			root = build(preorder,index);//buildTreeÖĞµÄrootÊÇÁ´±í£¬Á¬Í¨ËùÓĞÊıµÄ½Úµã 
-		}
-		
-		void buildLeafList()
-		{
-			clearLeaf();
-			linkLeaves(root);
-		}
-		
-		void displayLeaf()
-		{
-			if(leafHead == nullptr)
-			{
-				cout << "ÎŞÒ¶×Ó½Úµã" << endl;
-				return;
-			}
-			
-			leafNode* current = leafHead;
-			while(current != nullptr)
-			{
-				cout << current -> value;
-				current = current -> next;
-			}			
-			
-			cout << endl;
-			
-		}
+    private:
+        treeNode* root;
+        leafNode* leafHead;
+        leafNode* leafTail;
+        
+    treeNode* build(const vector<int>& preorder, int& current)
+    {
+        if(current >= preorder.size() || preorder[current] == 0)
+        {
+            current++;
+            return nullptr;//å¦‚æœæ˜¯ç©ºèŠ‚ç‚¹è¿”å›ç©ºæŒ‡é’ˆ 
+        }
+        
+        treeNode* tempNode = new treeNode(preorder[current]);
+        current++;
+        
+        tempNode -> left = build(preorder,current);
+        tempNode -> right = build(preorder,current);
+        
+        return tempNode;
+    }
+    
+    void linkLeaves(treeNode* node)
+    {
+        if(node == nullptr)
+        {
+            return;
+        }
+        
+        if(node -> left == nullptr && node -> right == nullptr)
+        {
+            leafNode* newLeaf = new leafNode(node -> value);
+            
+            if(leafHead == nullptr)
+            {
+                leafHead = leafTail = newLeaf;
+            }
+            else
+            {
+                leafTail -> next = newLeaf;
+                leafTail = newLeaf;	
+            }
+        }
+        
+        linkLeaves(node -> left);
+        linkLeaves(node -> right);
+    }
+    
+    void clearLeaf()
+    {
+        leafNode* current = leafHead;
+        while(current != nullptr)
+        {
+            leafNode* temp = current;
+            current = current -> next;
+            
+            delete temp;
+        }
+        
+        leafHead = leafTail = nullptr;
+    }
+    
+    void clearTree(treeNode* node)
+    {
+        if(node == nullptr) return;
+        
+        clearTree(node -> left);
+        clearTree(node -> right);
+        
+        delete node;
+    }
+    
+    public:
+        binTree():root(nullptr),leafHead(nullptr),leafTail(nullptr){}
+        
+        ~binTree()
+        {
+            clearTree(root);
+            clearLeaf();
+        }
+        
+        void buildTree(const vector<int>& preorder)
+        {
+            int index = 0;
+            root = build(preorder,index);//buildTreeä¸­çš„rootæŒ‡å‘æ ¹èŠ‚ç‚¹ï¼Œé€šè¿‡é€’å½’å»ºç«‹æ‰€æœ‰èŠ‚ç‚¹ 
+        }
+        
+        void buildLeafList()
+        {
+            clearLeaf();
+            linkLeaves(root);
+        }
+        
+        void displayLeaf()
+        {
+            if(leafHead == nullptr)
+            {
+                cout << "æ— å¶å­èŠ‚ç‚¹" << endl;
+                return;
+            }
+            
+            leafNode* current = leafHead;
+            while(current != nullptr)
+            {
+                cout << current -> value;
+                current = current -> next;
+            }			
+            
+            cout << endl;
+            
+        }
 };
 
 int main()
 {
-	int treeNum;
-	while(1)
-	{
-		cout << "ÊäÈëÓĞ¶àÉÙ¿Ã¶ş²æÊ÷Òª½øĞĞ²âÊÔ£¨ÒÔ-1½áÊøÕû¸ö³ÌĞòµÄÔËĞĞ£©£º";
+    int treeNum;
+    while(1)
+    {
+        cout << "è¯·è¾“å…¥è¦è¿›è¡Œæµ‹è¯•çš„äºŒå‰æ ‘æ•°é‡ï¼Œè¾“å…¥-1ç»“æŸç¨‹åºï¼š";
         if(!(cin >> treeNum)) {
-            // ÊäÈë²»ÊÇÊı×Ö
-            cin.clear();  // Çå³ı´íÎó×´Ì¬
-            cin.ignore(1000, '\n');  // ºöÂÔ´íÎóÊäÈë
-            cout << "ÇëÊäÈëÓĞĞ§Êı×Ö£¡" << endl;
+            // è¾“å…¥ä¸æ˜¯æ•°å­—
+            cin.clear();  // æ¸…é™¤é”™è¯¯çŠ¶æ€
+            cin.ignore(1000, '\n');  // æ¸…ç©ºè¾“å…¥ç¼“å†²åŒº
+            cout << "è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—ï¼" << endl;
             continue;
         }
         
@@ -159,25 +159,25 @@ int main()
         }
         
         if(treeNum <= 0) {
-            cout << "ÇëÊäÈë´óÓÚ0µÄÊı×Ö£¡" << endl;
+            cout << "è¯·è¾“å…¥å¤§äº0çš„æ•°å­—ï¼" << endl;
             continue;
         }
         
-        cin.ignore();  // ºöÂÔ»»ĞĞ·û
+        cin.ignore();  // è¯»å–å›è½¦ç¬¦
         
         for(int i = 0; i < treeNum; i++)
         {
-            cout << "µÚ" << i+1 << "¿ÃÊ÷:" << endl;
+            cout << "ç¬¬" << i+1 << "æ£µæ ‘:" << endl;
             
-            // ¶ÁÈ¡Ç°Ğò±éÀúĞòÁĞ
-            cout << "ÊäÈëÇ°Ğò±éÀúĞòÁĞ£¨ÒÔ¿Õ¸ñ·Ö¸ô£¬»Ø³µ½áÊø£©: ";
+            // è¯»å–å‰åºéå†åºåˆ—
+            cout << "è¯·è¾“å…¥å‰åºéå†åºåˆ—ï¼Œç”¨ç©ºæ ¼åˆ†éš”ï¼Œä»¥å›è½¦ç»“æŸ: ";
             vector<int> preorder;
             
             string line;
             getline(cin, line);
             
             if(line.empty()) {
-                cout << "ÊäÈëÎª¿Õ£¬Ìø¹ı´ËÊ÷¡£" << endl;
+                cout << "è¾“å…¥ä¸ºç©ºï¼Œè¯·é‡æ–°è¾“å…¥" << endl;
                 continue;
             }
             
@@ -189,23 +189,23 @@ int main()
                 preorder.push_back(val);
             }
             
-            // ¼ì²éÊÇ·ñ³É¹¦¶ÁÈ¡ÁËËùÓĞÊäÈë
+            // æ£€æŸ¥æ˜¯å¦æˆåŠŸè¯»å–æ‰€æœ‰æ•°æ®
             if(ss.fail() && !ss.eof()) {
-                cout << "¾¯¸æ£ºÊäÈë°üº¬·ÇÊı×Ö×Ö·û£¬ÒÑ¶ÁÈ¡µÄÊı×Ö£º" << preorder.size() << "¸ö" << endl;
+                cout << "è­¦å‘Šï¼šè¾“å…¥ä¸­åŒ…å«æ— æ³•è¯»å–çš„å­—ç¬¦ï¼Œå·²è¯»å–" << preorder.size() << "ä¸ª" << endl;
                 hasError = true;
             }
             
-            // ¹¹½¨²¢ÏÔÊ¾
+            // æ„å»ºå¹¶æ˜¾ç¤º
             binTree tree;
             if(!hasError) {
                 tree.buildTree(preorder);
                 tree.buildLeafList();
-                cout << "Ò¶×Ó½ÚµãÓÃµ¥Á´±í±íÊ¾Êä³ö½á¹û: ";
+                cout << "å¶å­èŠ‚ç‚¹æŒ‰é¡ºåºè¾“å‡ºä¸º: ";
                 tree.displayLeaf();
             }
         }
         
         cout << endl;
-		
-	}
+        
+    }
 }

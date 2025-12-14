@@ -2,126 +2,107 @@
 using namespace std;
 
 template <class T>
-class listNode{
-	public:
-		T data;
-		listNode<T>* next; //Ö¸ÏòÏÂÒ»¸öµÄÖ¸Õë
-		
-		listNode(const T& value):data(value),next(nullptr){} //nextÖ¸ÕëÖ¸Ïò¿Õ 
-		
+class listNode {
+public:
+	T data;
+	listNode<T>* next; // æŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„æŒ‡é’ˆ
+
+	listNode(const T& value) : data(value), next(nullptr) {} // æ„é€ å‡½æ•°ï¼ŒnextæŒ‡å‘ç©º
 };
 
 template <class T>
-class linkedList{
-	private:
-		listNode<T>* head;
-		int length;
-		
-	public:
-		linkedList():head(nullptr),length(0){}
-		
-		~linkedList()
-		{
-			clear();
+class linkedList {
+private:
+	listNode<T>* head;
+	int length;
+
+public:
+	linkedList() : head(nullptr), length(0) {}
+
+	~linkedList() {
+		clear();
+	}
+
+	void clear() {
+		listNode<T>* current = head;
+		while (current != nullptr) {
+			listNode<T>* temp = current;
+			current = current->next;
+			delete temp; // å…ˆåˆ é™¤å½“å‰èŠ‚ç‚¹ï¼Œå†è®©currentæŒ‡å‘ä¸‹ä¸€ä¸ªè¦åˆ é™¤çš„èŠ‚ç‚¹
 		}
-		
-		void clear()
-		{
-			listNode<T>* current = head;
-			while(current != nullptr)
-			{
-				listNode<T>* temp = current;
-				current = current -> next;
-				delete temp;//ÏÈ°ÑÒªÉ¾³ıµÄ±£´æ£¬ÔÚcurrentÖ¸ÕëÖ¸ÏòÏÂÒ»¸öÒªÉ¾³ıµÄÒÔºóÔÙÉ¾³ı 
+		head = nullptr; // è¡¨ç¤ºé“¾è¡¨ä¸ºç©º
+		length = 0;
+	}
+
+	void insertOrder(const T& value) {
+		listNode<T>* newNode = new listNode<T>(value);
+		if (head == nullptr || value <= head->data) {
+			newNode->next = head;
+			head = newNode;
+		} else {
+			listNode<T>* current = head; // å½“å‰æŒ‡é’ˆä¸ºå¤´æŒ‡é’ˆï¼Œå‡†å¤‡éå†
+			while (current->next != nullptr && current->next->data < value) {
+				current = current->next;
 			}
-			head = nullptr;// ±íÊ¾Á´±íÎª¿Õ 
-			length = 0;
+			newNode->next = current->next;
+			current->next = newNode; // æ’å…¥newNodeåˆ°currentä¹‹å
 		}
-		
-		void insertOrder(const T& value)
-		{
-			listNode<T>* newNode = new listNode<T>(value);
-			if(head == nullptr || value <= head -> data)
-			{
-				newNode -> next = head;
-				head = newNode;
-			}
-			else
-			{
-				listNode<T>* current = head;//ÉèÖÃµ±Ç°Ö¸ÕëÎªÍ·Ö¸Õë£¬×¼±¸±éÀú 
-				while(current -> next != nullptr && current -> next -> data < value)
-				{
-					current = current -> next;
-				}
-				newNode -> next = current -> next;
-				current -> next = newNode;// ²åÈënewNodeÔÚcurrentºóÃæ 
-			}
-			
-			length++;
+
+		length++;
+	}
+
+	void display() const {
+		if (head == nullptr) {
+			cout << "é“¾è¡¨ä¸ºç©º" << endl;
+			return;
 		}
-		
-		void display() const
-		{
-			if(head == nullptr)
-			{
-				cout << "¿ÕÁĞ±í" << endl;
-				return;
-			}
-			
-			listNode<T>* current = head;
-			while(current != nullptr)
-			{
-				cout << current -> data << " ";
-				current = current -> next;
-			}
-			cout << endl;
+
+		listNode<T>* current = head;
+		while (current != nullptr) {
+			cout << current->data << " ";
+			current = current->next;
 		}
-		
-		void read(int elenum)
-		{
-			clear(); 
-			T value;
-			for(int i = 0;i < elenum;i++)
-			{
-				cin >> value;
-				insertOrder(value);
-			}
+		cout << endl;
+	}
+
+	void read(int elenum) {
+		clear();
+		T value;
+		for (int i = 0; i < elenum; i++) {
+			cin >> value;
+			insertOrder(value);
 		}
-		
+	}
 };
 
-int main()
-{
+int main() {
 	linkedList<int> list1;
 	int elenum;
 	int insertVal;
-	
-	while(1)
-	{
-		cout << "´æÈëÁ´±íµÄÔªËØ¸öÊı£¨ÒÔ-1½áÊøÕû¸ö³ÌĞòµÄÔËĞĞ£©£º";
-        cin >> elenum;
-        
-        if(elenum == -1)
-        {
-        	break;
+
+	while (1) {
+		cout << "è¯·è¾“å…¥é“¾è¡¨å…ƒç´ ä¸ªæ•°ï¼ˆè¾“å…¥-1ç»“æŸï¼‰ï¼š";
+		cin >> elenum;
+
+		if (elenum == -1) {
+			break;
 		}
-		
-		cout << "´æÈëÁ´±íµÄÊı¾İ" << endl;
-	
+
+		cout << "è¯·è¾“å…¥é“¾è¡¨å…ƒç´ ï¼š" << endl;
+
 		list1.read(elenum);
-		
-		
-		 cout << "´ı²åÈëµÄÔªËØ£º";
-        cin >> insertVal;
-        
-        cout << "²åÈëÇ°µÄÁ´±íÊı¾İ£º";
-        list1.display();
-        
-        list1.insertOrder(insertVal);
-        
-        cout << "²åÈëºóµÄÁ´±íÊı¾İ£º";
-        list1.display();
-        
-        cout << endl;
+
+		cout << "è¯·è¾“å…¥è¦æ’å…¥çš„å…ƒç´ ï¼š";
+		cin >> insertVal;
+
+		cout << "æ’å…¥å‰é“¾è¡¨æ•°æ®ï¼š";
+		list1.display();
+
+		list1.insertOrder(insertVal);
+
+		cout << "æ’å…¥åé“¾è¡¨æ•°æ®ï¼š";
+		list1.display();
+
+		cout << endl;
 	}
 }

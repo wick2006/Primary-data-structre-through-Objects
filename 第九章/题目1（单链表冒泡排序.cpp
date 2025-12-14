@@ -13,41 +13,41 @@ class linkList{
 	private:
 		listNode* head;
 		
-	// current: µ±Ç°´¦ÀíµÄ½ÚµãÖ¸Õë
-    // length: µ±Ç°ĞèÒª´¦ÀíµÄÁ´±í³¤¶È
-    // round: µ±Ç°ÊÇµÚ¼¸ÂÖÅÅĞò£¨Íâ²¿³õÊ¼»¯ÎªÁ´±í³¤¶È£©
-	    listNode* bubbleSort(listNode* current, int length) 
+	// current: å½“å‰è¦å¤„ç†çš„èŠ‚ç‚¹æŒ‡é’ˆ
+	// length: å½“å‰éœ€è¦æ’åºçš„é“¾è¡¨é•¿åº¦
+	// round: å½“å‰æ˜¯ç¬¬å‡ è½®ï¼Œä»å¤–éƒ¨å¼€å§‹ä¸ºé“¾è¡¨é•¿åº¦
+		listNode* bubbleSort(listNode* current, int length) 
 		{
-	        // µİ¹éÖÕÖ¹Ìõ¼ş£ºËùÓĞÂÖ´ÎÒÑÍê³É»òÁ´±íÒÑÅÅĞòºÃ
-	        if (length <= 1) 
+			// é€’å½’ç»ˆæ­¢æ¡ä»¶ï¼Œé•¿åº¦ä¸º1æˆ–æ›´çŸ­æ—¶åœæ­¢
+			if (length <= 1) 
 			{
-	            return current;
-	        }
-	        
-	        // Èç¹ûµ½´ïÁ´±íÄ©Î²£¬¿ªÊ¼ĞÂµÄÒ»ÂÖ
-	        if (current == nullptr || current->next == nullptr) 
+				return current;
+			}
+			
+			// å¦‚æœåˆ°è¾¾é“¾è¡¨å°¾éƒ¨ï¼Œé‡æ–°ä»å¤´å¼€å§‹æ–°ä¸€è½®
+			if (current == nullptr || current->next == nullptr) 
 			{
-	            // ÖØĞÂ´ÓÍ·¿ªÊ¼£¬½øĞĞÏÂÒ»ÂÖ
-	            return bubbleSort(head, length - 1);
-	        }
-	        
-	        // ±È½Ïµ±Ç°½ÚµãºÍÏÂÒ»¸ö½Úµã
-	        if (current->value > current->next->value) 
+				// ä»å¤´å¼€å§‹æ–°ä¸€è½®ï¼Œé•¿åº¦å‡ä¸€
+				return bubbleSort(head, length - 1);
+			}
+			
+			// æ¯”è¾ƒå½“å‰èŠ‚ç‚¹å’Œä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+			if (current->value > current->next->value) 
 			{
-	            // ½»»»Êı¾İ
-	            swap(current->value, current->next->value);
-	        }
-	        
-	        // ¼ÌĞø´¦ÀíÏÂÒ»¸ö½Úµã
-	        return bubbleSort(current->next, length);
-	    }
-    
-    public:
-    	linkList():head(nullptr){}
-    	
-    	~linkList()
+				// äº¤æ¢æ•°æ®
+				swap(current->value, current->next->value);
+			}
+			
+			// é€’å½’å¤„ç†ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+			return bubbleSort(current->next, length);
+		}
+	
+	public:
+		linkList():head(nullptr){}
+		
+		~linkList()
 		{
-    		clear();
+			clear();
 		}
 		
 		void clear()
@@ -62,7 +62,7 @@ class linkList{
 			head = nullptr;
 		}
 		
-		void push(int val) // Î²²¿²åÈë 
+		void push(int val) // å°¾æ’æ³•æ’å…¥ 
 		{
 			listNode* newNode = new listNode(val);
 			
@@ -120,32 +120,32 @@ int main()
 {
 	while (true) 
 	{
-        linkList list;
-        int num;
-        
-        cout << "ÇëÊäÈëÒ»×éÕûÊı£¨ÒÔ0½áÊøÊäÈë£¬ÒÔ-1½áÊø³ÌĞò£©: ";
-        cin >> num;
-        
-        if (num == -1) {
-            break;
-        }
-        
-        while (num != 0) {
-            list.push(num);
-            cin >> num;
-        }
-        
-        cout << "ÅÅĞòÇ°µÄĞòÁĞ: ";
-        list.display();
-        
-        list.listSort();
-        
-        cout << "ÅÅĞòºóµÄĞòÁĞ: ";
-        list.display();
-        cout << endl;
-    }
-    
-    return 0;
+		linkList list;
+		int num;
+		
+		cout << "è¯·è¾“å…¥ä¸€ç»„æ•´æ•°ï¼Œä»¥0ç»“æŸè¾“å…¥ï¼Œä»¥-1ç»“æŸç¨‹åº: ";
+		cin >> num;
+		
+		if (num == -1) {
+			break;
+		}
+		
+		while (num != 0) {
+			list.push(num);
+			cin >> num;
+		}
+		
+		cout << "æ’åºå‰é“¾è¡¨: ";
+		list.display();
+		
+		list.listSort();
+		
+		cout << "æ’åºåé“¾è¡¨: ";
+		list.display();
+		cout << endl;
+	}
+	
+	return 0;
 }
 
 

@@ -43,9 +43,8 @@ class orderedList{
 		{
 			if(n > maxSize)
 			{
-				std::cout << "³¬¹ý×î´óÈÝÁ¿" << std::endl;
+				std::cout << "åˆå§‹åŒ–å…ƒç´ ä¸ªæ•°è¶…è¿‡æœ€å¤§å®¹é‡" << std::endl;
 				return;
-				
 			}
 			
 			length = n;
@@ -59,7 +58,7 @@ class orderedList{
 		{
 			if(length >= maxSize)
 			{
-				std::cout << "ÁÐ±íÒÑÂú" << std::endl; 
+				std::cout << "åˆ—è¡¨å·²æ»¡" << std::endl; 
 				return false;
 			}
 			
@@ -101,7 +100,7 @@ int main()
 	while(1)
 	{
 		int elemnum;
-		std::cout << "ÊäÈë´æÈëÊý×éµÄ¸öÊý"<< std::endl;
+		std::cout << "è¯·è¾“å…¥åˆå§‹åŒ–çš„å…ƒç´ ä¸ªæ•°"<< std::endl;
 		
 		std::cin >> elemnum;
 		
@@ -112,13 +111,13 @@ int main()
 		
 		if(elemnum < 0 || elemnum > maxSize)
 		{
-			std::cout << "´íÎó£ºÔªËØÊýÁ¿ÎÞÐ§»ò³¬¹ý×î´óÈÝÁ¿£¡" << std::endl;
-            continue;
+			std::cout << "è¾“å…¥å…ƒç´ ä¸ªæ•°æ— æ•ˆæˆ–è¶…è¿‡æœ€å¤§å®¹é‡" << std::endl;
+			continue;
 		}
 		
 		orderedList<int> list1(maxSize);
 		
-		std::cout << "´æÈëµÄÊý×é:" << std::endl;
+		std::cout << "è¯·è¾“å…¥å…ƒç´ :" << std::endl;
 		
 		int* temparr = new int[elemnum];
 		for(int i = 0;i < elemnum ;i++)
@@ -131,15 +130,15 @@ int main()
 		
 		int newelem;
 		
-		std::cout << "²åÈëµÄÔªËØ:" << std::endl;
+		std::cout << "è¯·è¾“å…¥è¦æ’å…¥çš„å…ƒç´ :" << std::endl;
 		std::cin >> newelem;
 		
-		std::cout << "²åÈëÇ°Êý¾Ý:" << std::endl;
+		std::cout << "æ’å…¥å‰é¡ºåºè¡¨:" << std::endl;
 		list1.display();
 		
 		if(list1.insert(newelem))
 		{
-			std::cout << "²åÈëºóµÄÊý¾Ý:" << std::endl;
+			std::cout << "æ’å…¥åŽé¡ºåºè¡¨:" << std::endl;
 			list1.display();
 		}
 		std::cout << std::endl;

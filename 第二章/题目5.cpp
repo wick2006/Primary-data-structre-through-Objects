@@ -86,7 +86,7 @@ class cirList{
 			
 			listNode<T>* newHead = reverseList(current -> next);
 			
-			current -> next -> next = current;//Èç¹ûÔ­Á´±íÊÇC->D,ÄÇÃ´µİ¹éºó£¬currentÖ¸Ïòc£¬current->nextÖ¸ÏòD£¬µÃµ½D->C->nullptr 
+			current -> next -> next = current;// ä¾‹å¦‚åŸé“¾è¡¨C->Dï¼Œé€’å½’æ—¶currentæŒ‡å‘Cï¼Œcurrent->nextæŒ‡å‘Dï¼Œå˜æˆD->C->nullptr 
 			current -> next = nullptr;
 			
 			return newHead;
@@ -94,7 +94,7 @@ class cirList{
 		
 		void inverse()
 		{
-			if(head == nullptr || head -> next == head)//Ö»ÓĞÒ»¸ö½Úµã 
+			if(head == nullptr || head -> next == head)// åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ 
 			{
 				return ;
 			}
@@ -105,7 +105,7 @@ class cirList{
 			{
 				current = current -> next;
 			}
-			current -> next = nullptr;//½«Ñ­»·Á´±í¶Ï¿ª³Éµ¥Á´±í
+			current -> next = nullptr;// æ–­å¼€å¾ªç¯é“¾è¡¨å½¢æˆå•é“¾è¡¨
 			
 			head = reverseList(head);
 			
@@ -115,7 +115,7 @@ class cirList{
 				current = current -> next;
 			 } 
 			 
-			current -> next = head;//ÖØĞÂºÏ³ÉÑ­»·Á´±í 
+			current -> next = head;// å†æ¬¡è¿æ¥æˆå¾ªç¯é“¾è¡¨ 
 		}
 		
 		void read()
@@ -139,7 +139,7 @@ class cirList{
 		{
 		    if(head == nullptr)
 		    {
-		        cout << "¿ÕÁĞ±í" << endl;
+				cout << "é“¾è¡¨ä¸ºç©º" << endl;
 		        return;
 		    }
 		    
@@ -147,8 +147,8 @@ class cirList{
 		    do {
 		        cout << current->data << " ";
 		        current = current->next;
-		    } while(current != head); // Ê¹ÓÃdo-whileÈ·±£ÖÁÉÙÖ´ĞĞÒ»´Î
-		    cout << endl;
+			} while(current != head); // ä½¿ç”¨do-whileç¡®ä¿è‡³å°‘æ‰§è¡Œä¸€æ¬¡
+			cout << endl;
 	}		
 };
 
@@ -156,15 +156,15 @@ int main() {
     cirList<int> list;
     
     while (true) {
-        cout << "ÊäÈë´æ·Åµ½Á´±íµÄÊı¾İ£¨ÒÔ-1½áÊøÊı¾İµÄÊäÈë£©£º";
+		cout << "è¯·è¾“å…¥è¦æ’å…¥çš„æ•°æ®ï¼ˆä»¥-1ç»“æŸè¾“å…¥ï¼‰:";
         list.read();
         
-        cout << "ÄæÖÃÇ°µÄÁ´±íÊı¾İ£º";
+		cout << "å½“å‰é“¾è¡¨ä¸­çš„æ•°æ®:";
         list.display();
         
         list.inverse();
         
-        cout << "ÄæÖÃºóµÄÁ´±íÊı¾İ£º";
+		cout << "é€†ç½®åé“¾è¡¨ä¸­çš„æ•°æ®:";
         list.display();
         
         cout << endl;

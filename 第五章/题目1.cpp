@@ -7,7 +7,7 @@ template <class T>
 class completeBinTree{
 	private:
 		vector<T> tree;
-		int n; //¶ÈÊý
+		int n; // èŠ‚ç‚¹æ•°
 		
 	public:
 		completeBinTree():n(0){}
@@ -16,7 +16,7 @@ class completeBinTree{
 		{
 			n = size;
 			tree.resize(n);
-			cout << "¶þ²æÊ÷½ÚµãÊý¾Ý" << endl;
+			cout << "è¯·è¾“å…¥å„èŠ‚ç‚¹çš„å€¼" << endl;
 			
 			for(int i = 0;i < n;i++)
 			{
@@ -28,7 +28,7 @@ class completeBinTree{
 		{
 			if(n == 0)
 			{
-				return; //Ê÷Îª¿Õ 
+				return; // å¦‚æžœä¸ºç©º 
 			}
 			
 			stack<T> st;
@@ -71,7 +71,7 @@ int main()
 	
 	while(1)
 	{
-		cout << "ÊäÈëÍêÈ«¶þ²æÊ÷µÄÔªËØ¸öÊý£¨ÒÔ-1½áÊøÕû¸ö³ÌÐòµÄÔËÐÐ£©£º" << endl;
+		cout << "è¯·è¾“å…¥å®Œå…¨äºŒå‰æ ‘çš„å…ƒç´ ä¸ªæ•°ï¼Œè¾“å…¥-1ç»“æŸç¨‹åºï¼š" << endl;
 		cin >> n;
 		
 		if(n == -1)
@@ -80,7 +80,7 @@ int main()
 		 } 
 		 
 		tree.read(n);
-		cout << "ÖÐÐò±éÀúÐòÁÐ£º" << endl;
+		cout << "ä¸­åºéåŽ†ç»“æžœä¸ºï¼š" << endl;
 		tree.minRead(); 
 		
 		cout << endl;
