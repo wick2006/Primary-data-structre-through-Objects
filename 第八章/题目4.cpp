@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -39,7 +39,7 @@ public:
 	pair<vector<int>, vector<int>> dijkstra(int startVertex)
 	{
 		vector<int> dist(vertexNum, INT_MAX); // 存储起点到各顶点的最短距离
-		vector<int> src(vertexNum, -1); // 存储最短路径的前驱节点（保持原始变量名 src）
+		vector<int> src(vertexNum, -1); // 存储最短路径的前驱节点
 		vector<bool> visited(vertexNum, false); // 标记顶点是否已确定最短路径
 
 		// 边界检查
@@ -75,16 +75,16 @@ public:
 					if (newDist < dist[v]) // 通过u到v的距离更短
 					{
 						dist[v] = newDist; // 更新最短距离
-						src[v] = u; // 更新前驱节点（使用原名 src）
+						src[v] = u; // 更新前驱节点
 					}
 				}
 			}
 		}
 
-		return { dist, src }; // 返回距离和前驱（前驱数组名为 src，未改动）
+		return { dist, src }; // 返回距离和前驱
 	}
 
-	// 递归打印从 start 到 vertex 的路径（使用原始变量名 src）
+	// 递归打印从 start 到 vertex 的路径
 	void printPath(int vertex, const vector<int>& src)
 	{
 		// 防御性：若索引越界或 src[vertex] 为 -1（不可达且非起点），直接打印 vertex
@@ -158,7 +158,7 @@ int main()
 		for (int i = 0; i < n; i++)
 		{
 			getline(cin, line);
-			// 如果读取到空行，重读一次（容错）
+			// 如果读取到空行，重读一次
 			if (line.size() == 0) { i--; continue; }
 			stringstream ss(line);
 			vector<int> rowValue;
@@ -177,7 +177,7 @@ int main()
 		cout << "请输入Dijkstra的起始顶点：";
 		if (!(cin >> startVertex)) break;
 
-		// 使用单一函数计算并打印起点到各顶点的最短路径与距离（不改变原始变量名）
+		// 使用单一函数计算并打印起点到各顶点的最短路径与距离
 		graph.printAllShortestPaths(startVertex);
 	}
 	return 0;
