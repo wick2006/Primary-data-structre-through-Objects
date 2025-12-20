@@ -13,7 +13,7 @@ class seqList{
     public:
         seqList(int n):length(n)
         {
-            data.resize(n);
+            data = new int[n];
         }
 
         seqList(int n,vector<int> vec):length(n)
