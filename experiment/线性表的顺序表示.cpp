@@ -13,7 +13,7 @@ class seqList{
     public:
         seqList(int n):length(n)
         {
-            data = new int[n];
+            data.resize(n);
         }
 
         seqList(int n,vector<int> vec):length(n)
@@ -118,7 +118,7 @@ int main()
         case 4:
             cout << "请输入查找值：";
             cin >> x;
-            cout << "查找值在第" << list.findX(x) + 1<< "位" << endl;// 返回为数组下标+1
+            cout << "查找值在第" << list.findX(x) + 1<< "位" << endl;// 返回为数组下标
             break;
         case 5:
             list.display();
