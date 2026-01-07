@@ -135,12 +135,6 @@ int main()
                 cout << "该二叉树是二叉搜索树" << endl;
             else
                 cout << "该二叉树不是二叉搜索树" << endl;
-            /*
-            if(tree.isBSTInRange())
-                cout << "该二叉树是二叉搜索树（范围法）" << endl;
-            else
-                cout << "该二叉树不是二叉搜索树（范围法）" << endl;
-            */
         }
         
     }
